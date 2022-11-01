@@ -1,0 +1,76 @@
+# -*- coding: utf-8 -*-
+"""
+Spyder Editor
+
+This is a temporary script file.
+"""
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Created on Mon June 20 20:57:49 2022
+
+
+"""
+
+#Version 6: #Debugged and tested all 50 values
+#Fixed issue with 0 and negative numbers
+#Went back to middleDigit function and fixed modulo = 0 
+
+x = int (input ("Pick a number of 1-50: ")) #input
+
+romanNumeral = "" #creates the string
+
+
+romanDigits = ["I", "II", "III", "IV", "V", 
+               "VI", "VII", "VIII", "IX", "X", "L"] #creates addendums
+
+#middleDigits - function meant for 10-49
+def middleDigits (str):
+    global romanNumeral
+    if (x % 10 == 0):
+        if (x == 10):
+            print (romanNumeral)
+        elif (x == 40):
+            romanNumeral = romanNumeral + (romanDigits [10])
+            print (romanNumeral)
+        else: 
+            y = x // 10
+            romanNumeral = romanNumeral + ((y-1) * romanDigits [9])
+            print (romanNumeral)
+    elif (x % 10 != 0):
+        if (x < 40 and x > 9):
+            y = x // 10
+            romanNumeral = romanNumeral + ((y-1) * romanDigits [9])
+            romanNumeral = romanNumeral + romanDigits [(x % 10) - 1]
+        elif(x >=40): 
+            romanNumeral = romanNumeral + romanDigits [10]
+            romanNumeral = romanNumeral + romanDigits [(x % 10) - 1]
+        print (romanNumeral)
+    
+    else:
+        print ("sorry there's been a mistake or this isn't in the data set")
+
+#Separates by first letter in the Roman Numeral
+if (x == 50):
+    romanNumeral = "L" 
+elif (x > 9 and x<=50):
+    romanNumeral = "X"
+elif ((x < 5 and x >= 1) or x == 9):
+    romanNumeral = "I"
+elif (x >=5 and x < 9):
+    romanNumeral = "V"
+else: 
+    print ("sorry")
+    
+#Meant for numbers starting with I, V, L
+#Numbers 10-40 need to enter the separate loop
+if (romanNumeral == "I"):
+    romanNumeral = romanDigits [x-1]
+    print (romanNumeral)
+elif (romanNumeral == "V"):
+    romanNumeral = romanDigits [x-1]  
+    middleDigits (str)
+elif (romanNumeral == "X"):
+    middleDigits (str)
+elif (romanNumeral == "L"): 
+    print (romanNumeral)
