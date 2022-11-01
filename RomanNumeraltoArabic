@@ -1,0 +1,84 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Sep 11 00:08:51 2022
+
+@author: Brandon
+"""
+
+#Version 5
+#Fixed issues with double digit numbers
+#Added L = 50
+
+x = str(input("Type your Roman Numeral(I to L): ")) #input
+
+
+
+tens = ""
+ones = ""
+onesp = 0
+
+tensn = 0
+
+#Splits string into tens and ones digit
+if(x[0] == "X" and len(x) > 1):
+    for i in x:
+        if(i == "I" or i == "V"):
+            onesp= x.index(i)
+            break
+        tens = tens + i
+    if(onesp > 0):
+        ones = x[onesp:]
+else:
+    ones = x
+        
+#Determines which tens digit it is
+if(len(tens) > 0):
+    if(tens == "X"):
+        tensn = 10
+    elif(tens == "XX"):
+        tensn = 20
+    elif(tens == "XXX"):
+        tensn = 30
+    elif(tens == "XL"):
+        tensn = 40
+    else:
+        print("Roman Numeral outside of range or non-existant")
+
+#first 3 numbers
+def first3(str):
+    p = str
+    q = 0
+    if(p == "I"):
+        q = 1
+    elif(p == "II"):
+        q = 2
+    elif(p == "III"):
+        q = 3
+    else:
+        print("error with code")
+    return q
+
+#Determines the ones digit of the number
+def onesDigit(str):
+    temp = str
+    num = 0
+    if (temp[len(temp)-1] == "V" or (temp[len(temp)-1] == "X")):
+        if(temp[len(temp)-1] == "V"): 
+            num += 5
+        elif(temp[len(temp)-1] == "X"):
+            num += 10
+        if(temp[0] == "I"):      
+            num -= 1 
+    elif(temp[0] == "V"):
+        num += 5 + first3(temp[1:]) 
+    else:
+        num = first3(temp)
+    return num
+
+#Numbers that are not divisible by 10 are put in separate loop
+if(tensn > 0 and onesp == 0):
+    print(tensn)
+elif(ones == "L"):
+    print(50)
+else:
+    print(tensn + onesDigit(ones))
